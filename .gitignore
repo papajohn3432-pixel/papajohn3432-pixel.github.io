@@ -1,3 +1,5 @@
 _build.py
 start-site.bat
 __pycache__/
+_patch.py
+content.py
