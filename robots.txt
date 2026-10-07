@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://papajohn3432-pixel.github.io/sitemap.xml
