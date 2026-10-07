@@ -1,0 +1,10 @@
+.logo{display:block;line-height:0}
+.brand{height:56px;width:auto;border-radius:16px;box-shadow:0 6px 22px var(--glow);animation:wob 5s ease-in-out infinite;transition:transform .3s}.logo:hover .brand{transform:scale(1.1) rotate(-3deg)}
+@keyframes wob{0%,100%{transform:rotate(-2deg) scale(1)}50%{transform:rotate(2deg) scale(1.05)}}
+nav .w{height:76px}
+.hlogo{display:block;width:min(430px,78vw);height:auto;border-radius:36px;margin-bottom:30px;box-shadow:0 30px 90px var(--glow),0 0 0 1px var(--line);animation:hfloat 6s ease-in-out infinite;transform-origin:50% 60%}
+@keyframes hfloat{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-16px) rotate(1.5deg) scale(1.03)}}
+.hero .w{position:relative}
+.hlogo{position:relative}
+@media(min-width:1000px){.hero .w{display:grid;grid-template-columns:1.15fr .85fr;column-gap:30px;align-items:center}.hero .w>*{grid-column:1}.hero .hlogo{grid-column:2;grid-row:1/span 6;justify-self:end;margin:0}}
+@media(prefers-reduced-motion:reduce){.brand,.hlogo{animation:none}}

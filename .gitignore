@@ -3,3 +3,5 @@ start-site.bat
 __pycache__/
 _patch.py
 content.py
+_patch2.py
+assets/bravo-logo-full.png
