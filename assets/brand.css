@@ -35,3 +35,13 @@ h2{background:linear-gradient(90deg,var(--text),var(--c));-webkit-background-cli
 /* logo: transparent neon cut-out */
 .brand{height:60px;width:auto;border-radius:0;box-shadow:none;filter:drop-shadow(0 0 10px rgba(255,255,255,.45))}
 .hlogo{border-radius:0;box-shadow:none;width:min(560px,86vw);filter:drop-shadow(0 0 22px rgba(255,255,255,.35)) drop-shadow(0 20px 40px var(--glow))}
+/* testers group banner (top) and call-to-action (bottom) */
+.topbar{background:linear-gradient(90deg,var(--d),var(--e),var(--c),var(--a),var(--b));background-size:200%;animation:flow 10s linear infinite;position:relative;z-index:21}
+.topbar a{display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:center;align-items:center;padding:9px 16px;text-decoration:none;color:#1d0b3a;text-align:center;font-size:14px;line-height:1.35}
+.topbar b{font-family:Unbounded;font-size:13px;letter-spacing:.02em}
+.topbar span{font-weight:500}
+.topbar a:hover b{text-decoration:underline}
+.joinwrap{padding:50px 0 10px}
+.join{display:flex;gap:28px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1px solid var(--line);border-radius:30px;padding:38px 40px;background:linear-gradient(135deg,rgba(255,61,154,.28),rgba(255,138,31,.2),rgba(0,240,255,.16));box-shadow:0 20px 60px var(--glow)}
+.join h2{font-size:clamp(24px,3.4vw,38px);margin-bottom:8px}.join p{color:var(--dim);max-width:560px}
+@media(max-width:700px){.topbar span{display:none}.join{padding:26px}}
