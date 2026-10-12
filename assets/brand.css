@@ -86,3 +86,12 @@ h2{background:linear-gradient(90deg,var(--text),var(--c));-webkit-background-cli
 @keyframes tbpulse{70%{box-shadow:0 0 0 14px rgba(255,225,77,0),0 8px 22px rgba(0,0,0,.35)}100%{box-shadow:0 0 0 0 rgba(255,225,77,0),0 8px 22px rgba(0,0,0,.35)}}
 @media(max-width:640px){.tb-stack{display:none}.tb-in{padding:10px 14px;gap:12px}.tb-tx small{display:none}.tb-tx b{font-size:13.5px}.topbar .tb-btn{padding:10px 16px;font-size:14px}}
 @media(prefers-reduced-motion:reduce){.topbar:before,.tb-stack img,.topbar .tb-btn{animation:none}}
+/* first screen: headline visible without scrolling */
+.hero{padding:34px 0 26px}
+.hero h1,h1{font-size:clamp(34px,4.7vw,72px);line-height:1.04;letter-spacing:-.04em}
+.hero .pill{justify-self:start;margin-bottom:18px}
+.hero .lead{margin:16px 0 22px;font-size:clamp(16px,1.35vw,19px);max-width:560px}
+.hlogo{width:min(400px,60vw);margin-bottom:18px}
+@media(min-width:1000px){.hero .w{grid-template-columns:1.35fr .65fr;column-gap:24px}.hero .hlogo{width:min(420px,100%)}}
+@media(max-width:999px){.hero{padding:22px 0 18px}.hero .hlogo{width:min(260px,62vw)}}
+nav .w{height:68px}.brand{height:52px}
