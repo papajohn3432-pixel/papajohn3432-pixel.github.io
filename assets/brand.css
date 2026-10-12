@@ -95,3 +95,7 @@ h2{background:linear-gradient(90deg,var(--text),var(--c));-webkit-background-cli
 @media(min-width:1000px){.hero .w{grid-template-columns:1.35fr .65fr;column-gap:24px}.hero .hlogo{width:min(420px,100%)}}
 @media(max-width:999px){.hero{padding:22px 0 18px}.hero .hlogo{width:min(260px,62vw)}}
 nav .w{height:68px}.brand{height:52px}
+.hero{padding-top:6px}
+.hero .w{align-items:start}
+.hero .hlogo{margin-top:4px}
+@media(max-width:999px){.hero{padding-top:4px}}
