@@ -22,6 +22,11 @@ function get(path){return fetch(B+'/'+path).then(function(r){return r.json()}).c
 function readTotal(){get('stats/visitors').then(function(d){tot.textContent=fmt(cnt(d))||'0'})}
 var seen=false;try{seen=localStorage.getItem('bg_visited')==='1'}catch(e){}
 if(seen){readTotal()}else{inc('stats/visitors').then(function(d){var n=d.writeResults&&d.writeResults[0].transformResults&&d.writeResults[0].transformResults[0].integerValue;if(n){try{localStorage.setItem('bg_visited','1')}catch(e){}tot.textContent=fmt(n)}else readTotal()}).catch(readTotal)}
+/* visitors today: one count per browser per UTC day */
+var td=document.getElementById('vtd');
+if(td){var day=new Date().toISOString().slice(0,10).replace(/-/g,'');var last=null;try{last=localStorage.getItem('bg_day')}catch(e){}
+ var rt=function(){get('daily/'+day).then(function(d){td.textContent=fmt(cnt(d))||'0'})};
+ if(last===day){rt()}else{inc('daily/'+day).then(function(d){var n=d.writeResults&&d.writeResults[0].transformResults&&d.writeResults[0].transformResults[0].integerValue;if(n){try{localStorage.setItem('bg_day',day)}catch(e){}td.textContent=fmt(n)}else rt()}).catch(rt)}}
 /* online now: every open tab adds 1 to the current minute bucket once a minute; online = busiest of the last two minutes */
 function minute(){return Math.floor(Date.now()/60000)}
 function beat(){if(document.visibilityState==='hidden')return;inc('online/'+minute()).catch(function(){})}

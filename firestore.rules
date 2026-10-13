@@ -15,6 +15,13 @@ service cloud.firestore {
       allow update: if bucket.matches('[0-9]{6,9}') && request.resource.data.keys().hasOnly(['count']) && request.resource.data.count == resource.data.count + 1;
       allow delete, list: if false;
     }
+    // Visitors today: one document per UTC day (YYYYMMDD), increment-only.
+    match /daily/{day} {
+      allow get: if day.matches('[0-9]{8}');
+      allow create: if day.matches('[0-9]{8}') && request.resource.data.keys().hasOnly(['count']) && request.resource.data.count == 1;
+      allow update: if day.matches('[0-9]{8}') && request.resource.data.keys().hasOnly(['count']) && request.resource.data.count == resource.data.count + 1;
+      allow delete, list: if false;
+    }
     match /{document=**} { allow read, write: if false; }
   }
 }
