@@ -105,3 +105,6 @@ nav .w{height:68px}.brand{height:52px}
 .vc{display:inline-flex;align-items:center;gap:10px;padding:9px 20px;border-radius:99px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(255,61,154,.18),rgba(0,240,255,.14));color:var(--dim);font-size:14px;font-weight:600}
 .vc i{width:9px;height:9px;border-radius:50%;background:#3dff9a;box-shadow:0 0 10px #3dff9a;animation:pulse 1.8s infinite}
 .vc b{font-family:Unbounded;font-size:16px;color:var(--c);min-width:2ch;text-align:right}
+
+.vrow{gap:12px;flex-wrap:wrap}
+.vc i.gold{background:var(--c);box-shadow:0 0 10px var(--c);animation:none}

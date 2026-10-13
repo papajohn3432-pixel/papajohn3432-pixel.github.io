@@ -12,15 +12,19 @@ document.querySelectorAll('.card').forEach(function(c){c.addEventListener('point
 })();
 
 (function(){
-var el=document.getElementById('vcn');if(!el)return;
-var B='https://firestore.googleapis.com/v1/projects/bravogames/databases/(default)/documents';
-function show(n){var v=parseInt(n,10);if(isFinite(v))el.textContent=v.toLocaleString('en-US')}
-function read(){fetch(B+'/stats/visitors').then(function(r){return r.json()}).then(function(d){show((d.fields&&d.fields.count&&d.fields.count.integerValue)||'0')}).catch(function(){el.textContent='—'})}
+var tot=document.getElementById('vcn'),onl=document.getElementById('von');if(!tot)return;
+var P='projects/bravogames/databases/(default)/documents',B='https://firestore.googleapis.com/v1/'+P;
+function fmt(n){var v=parseInt(n,10);return isFinite(v)?v.toLocaleString('en-US'):null}
+function cnt(d){return d&&d.fields&&d.fields.count?parseInt(d.fields.count.integerValue,10):0}
+function inc(path){return fetch(B+':commit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({writes:[{transform:{document:P+'/'+path,fieldTransforms:[{fieldPath:'count',increment:{integerValue:'1'}}]}}]})}).then(function(r){return r.json()})}
+function get(path){return fetch(B+'/'+path).then(function(r){return r.json()}).catch(function(){return null})}
+/* total visitors: count each browser once */
+function readTotal(){get('stats/visitors').then(function(d){tot.textContent=fmt(cnt(d))||'0'})}
 var seen=false;try{seen=localStorage.getItem('bg_visited')==='1'}catch(e){}
-if(seen){read();return}
-fetch(B+':commit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({writes:[{transform:{document:'projects/bravogames/databases/(default)/documents/stats/visitors',fieldTransforms:[{fieldPath:'count',increment:{integerValue:'1'}}]}}]})})
-.then(function(r){return r.json()}).then(function(d){
- var n=d.writeResults&&d.writeResults[0].transformResults&&d.writeResults[0].transformResults[0].integerValue;
- if(n){try{localStorage.setItem('bg_visited','1')}catch(e){}show(n)}else read()
-}).catch(read);
+if(seen){readTotal()}else{inc('stats/visitors').then(function(d){var n=d.writeResults&&d.writeResults[0].transformResults&&d.writeResults[0].transformResults[0].integerValue;if(n){try{localStorage.setItem('bg_visited','1')}catch(e){}tot.textContent=fmt(n)}else readTotal()}).catch(readTotal)}
+/* online now: every open tab adds 1 to the current minute bucket once a minute; online = busiest of the last two minutes */
+function minute(){return Math.floor(Date.now()/60000)}
+function beat(){if(document.visibilityState==='hidden')return;inc('online/'+minute()).catch(function(){})}
+function readOnline(){if(!onl)return;var m=minute();Promise.all([get('online/'+m),get('online/'+(m-1))]).then(function(r){onl.textContent=fmt(Math.max(1,cnt(r[0]),cnt(r[1])))})}
+if(onl){beat();setTimeout(readOnline,1200);setInterval(function(){beat();setTimeout(readOnline,1500)},60000);document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'){beat();setTimeout(readOnline,1200)}})}
 })();

@@ -1,11 +1,18 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Public visitor counter: anyone can read it; it can only ever go up by exactly 1.
+    // Total visitors: anyone can read; it can only ever go up by exactly 1.
     match /stats/visitors {
       allow get: if true;
       allow create: if request.resource.data.keys().hasOnly(['count']) && request.resource.data.count == 1;
       allow update: if request.resource.data.keys().hasOnly(['count']) && request.resource.data.count == resource.data.count + 1;
+      allow delete, list: if false;
+    }
+    // Online now: one document per minute, each open tab adds 1 per minute (increment-only).
+    match /online/{bucket} {
+      allow get: if bucket.matches('[0-9]{6,9}');
+      allow create: if bucket.matches('[0-9]{6,9}') && request.resource.data.keys().hasOnly(['count']) && request.resource.data.count == 1;
+      allow update: if bucket.matches('[0-9]{6,9}') && request.resource.data.keys().hasOnly(['count']) && request.resource.data.count == resource.data.count + 1;
       allow delete, list: if false;
     }
     match /{document=**} { allow read, write: if false; }
