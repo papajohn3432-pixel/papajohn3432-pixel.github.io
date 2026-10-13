@@ -2,12 +2,45 @@
   "hosting": {
     "site": "bravogames",
     "public": ".",
-    "ignore": ["firebase.json", ".firebaserc", "**/.*", "**/node_modules/**", "_*.py", "content.py", "build_*", "start-site.bat", "README.md", "assets/bravo-logo-full.png"],
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "**/.*",
+      "**/node_modules/**",
+      "_*.py",
+      "content.py",
+      "build_*",
+      "start-site.bat",
+      "README.md",
+      "assets/bravo-logo-full.png",
+      "firestore.rules",
+      "firestore.indexes.json"
+    ],
     "cleanUrls": false,
     "trailingSlash": false,
     "headers": [
-      {"source": "**/*.@(jpg|jpeg|png|webp|mp4|css|js)", "headers": [{"key": "Cache-Control", "value": "public, max-age=3600"}]},
-      {"source": "**/*.html", "headers": [{"key": "Cache-Control", "value": "public, max-age=300"}]}
+      {
+        "source": "**/*.@(jpg|jpeg|png|webp|mp4|css|js)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=3600"
+          }
+        ]
+      },
+      {
+        "source": "**/*.html",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=300"
+          }
+        ]
+      }
     ]
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
 }
