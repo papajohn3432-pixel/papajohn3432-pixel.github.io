@@ -33,3 +33,8 @@ function beat(){if(document.visibilityState==='hidden')return;inc('online/'+minu
 function readOnline(){if(!onl)return;var m=minute();Promise.all([get('online/'+m),get('online/'+(m-1))]).then(function(r){onl.textContent=fmt(Math.max(1,cnt(r[0]),cnt(r[1])))})}
 if(onl){beat();setTimeout(readOnline,1200);setInterval(function(){beat();setTimeout(readOnline,1500)},60000);document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'){beat();setTimeout(readOnline,1200)}})}
 })();
+
+(function(){var v=document.getElementById('hv'),b=document.getElementById('hsnd');if(!v)return;
+if(b)b.onclick=function(){v.muted=!v.muted;b.innerHTML=v.muted?'&#128263;':'&#128266;';b.setAttribute('aria-label',v.muted?'Turn sound on':'Turn sound off');if(v.paused)v.play().catch(function(){})};
+if('IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){v.play().catch(function(){})}else{v.pause()}})},{threshold:.15}).observe(v)}
+})();
