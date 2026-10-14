@@ -108,3 +108,7 @@ nav .w{height:68px}.brand{height:52px}
 
 .vrow{gap:12px;flex-wrap:wrap}
 .vc i.gold{background:var(--c);box-shadow:0 0 10px var(--c);animation:none}
+
+.short video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+#promo .trailer{grid-template-columns:.8fr 1.2fr}
+@media(max-width:800px){#promo .trailer{grid-template-columns:1fr}}
